@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  function Parent(name) {
+    this.name = name || 'taka';
+  }
+  Parent.prototype.say = function () {
+    return 'My name is ' + this.name + '!';
+  };
+
+  var p = new Parent();
+  console.log(p.say());
+
+  var p2 = new Parent('hoge');
+  console.log(p2.say());
+
+  console.log(p2.constructor);
+
+  function Child() {
+    Parent.apply(this, arguments);
+  }
+
+  Child.prototype = Object.create(Parent.prototype);
+  Child.prototype.constructor = Child;
+  Child.prototype.cry = function () {
+    return this.name +  ' is crying.';
+  };
+
+  var c = new Child('tta');
+  console.log(c.say());
+  console.log(c.cry());
+  console.log(c.constructor);
+
+</script>
+</body>
+</html>
